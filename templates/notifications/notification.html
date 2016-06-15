@@ -1,0 +1,11 @@
+<div class="teste">
+{{ user }}
+{{ notifications.0 }}
+aaaaaaa
+{% load notifications_filters %}
+{% for notification in notifications %}
+  {% if notification|show_notification_to:user  %}
+    {{ notification }}
+  {% endif %}
+{% endfor %}
+</div>

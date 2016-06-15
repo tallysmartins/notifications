@@ -1,36 +1,39 @@
 from __future__ import unicode_literals
-
+from model_utils.managers import InheritanceManager
 from django.db import models
-
-# Create your models here.
 
 class Notification(models.Model):
     active = models.IntegerField(default=1)
-    unsubscribed_users = []
     color = models.CharField(max_length=10)
     message = models.CharField(max_length=200)
     created_at = models.DateTimeField(auto_now=False, auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True, auto_now_add=False)
+    objects = InheritanceManager()
+
+    def __str__(self):
+        return "Message: " + self.message
 
     def factory(type):
-        class WarningNotification(Notification):
-            def show(self): pass
-
-        class InformationNotification(Notification):
-            def show(self): pass
-
-        class DangerNotification(Notification):
-            def show(self): pass
-
-        class SuccessNotification(Notification):
-            def show(self): pass
-
-        class AdminNotification(Notification):
-            def show(self): pass
-
         return eval(type + 'Notification()')
     factory = staticmethod(factory)
-    
+
     class Meta:
-        abstract = True
+        abstract = False
+    
+class WarningNotification(Notification):
+    def show(self, user):
+        return True
+
+class InformationNotification(Notification):
+    def show(self, user):
+        return True
+
+class UnloggedUserNotification(Notification):
+    def show(self, user):
+        return user.is_anonymous()
+
+class AdminNotification(Notification):
+    def show(self, user):
+        return user.is_superuser
+
 
