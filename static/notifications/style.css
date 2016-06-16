@@ -1,0 +1,20 @@
+.show-notification {
+  padding: 2px;
+  margin: 5px;
+}
+
+.admin-notification {
+  background: green;
+}
+
+.warning-notification {
+  background: red;
+}
+
+.unloggeduser-notification {
+  background: yellow;
+}
+
+.information-notification {
+  background: blue;
+}

@@ -1,11 +1,12 @@
-<div class="teste">
-{{ user }}
-{{ notifications.0 }}
-aaaaaaa
 {% load notifications_filters %}
+{% load staticfiles %}
+
+<link href=" {% static 'notifications/style.css' %}" rel="stylesheet">
+<div class="row">
 {% for notification in notifications %}
   {% if notification|show_notification_to:user  %}
-    {{ notification }}
+    <div class="col s10 push-s1 center show-notification {{notification.css}}">{{ notification }}</div>
+    <div class="col s10 push-s1 center show-notification {{notification.css}}">{{ notification }}</div>
   {% endif %}
 {% endfor %}
 </div>

@@ -23,17 +23,25 @@ class Notification(models.Model):
 class WarningNotification(Notification):
     def show(self, user):
         return True
+    def css(self):
+        return "warning-notification"
 
 class InformationNotification(Notification):
     def show(self, user):
         return True
+    def css(self):
+        return "information-notification"
 
 class UnloggedUserNotification(Notification):
     def show(self, user):
         return user.is_anonymous()
+    def css(self):
+        return "unloggeduser-notification"
 
 class AdminNotification(Notification):
     def show(self, user):
         return user.is_superuser
+    def css(self):
+        return "admin-notification"
 
 
