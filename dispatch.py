@@ -4,7 +4,7 @@ from collections import defaultdict
 messages_pool = defaultdict(list)
 
 
-class Publisher():
+class Publisher(object):
     global messages_pool
 
     @classmethod
@@ -13,7 +13,7 @@ class Publisher():
             callback(*args, **kwargs)
 
 
-class Subscriber():
+class Subscriber(object):
     global messages_pool
 
     def subscribe(message_type, callback):
