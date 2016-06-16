@@ -6,13 +6,16 @@ messages_pool = defaultdict(list)
 
 class Publisher():
     global messages_pool
-    def publish(message_type, *args, **kwargs):
+
+    @classmethod
+    def publish(cls, message_type, *args, **kwargs):
         for callback in messages_pool[message_type]:
-            callback(*args, **kwargs) 
-  
+            callback(*args, **kwargs)
+
 
 class Subscriber():
     global messages_pool
+
     def subscribe(message_type, callback):
         messages_pool[message_type].append(callback)
 
